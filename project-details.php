@@ -1,12 +1,73 @@
+<?php
+require_once("./conekta/lib/Conekta.php");
+\Conekta\Conekta::setApiKey("key_msQB6PWGPOrKlZdWdm72RiK");
+\Conekta\Conekta::setApiVersion("2.0.0");
+
+
+
+try {
+
+  $thirty_days_from_now = (new DateTime())->add(new DateInterval('P30D'))->getTimestamp();
+
+  $order = \Conekta\Order::create(
+    [
+      "line_items" => [
+        [
+          "name" => "Box of Cohiba S1s",
+          "unit_price" => 100 * 100,
+          "quantity" => 1
+        ]
+      ],
+      "shipping_lines" => [
+        [
+          "amount" => 0,
+          "carrier" => "DHL"
+        ]
+      ],
+      "currency" => "MXN",
+      "customer_info" => [
+        "name" => "Carlos Flores",
+        "phone" => "+5213353319758",
+        "email" => "carlossfl_04@hotmail.com"
+      ],
+      "charges" => [
+        [
+          "payment_method" => [
+            "type" => "oxxo_cash",
+            "expires_at" => $thirty_days_from_now
+          ]
+        ]
+      ],
+      "metadata" => [
+        "reference" => "12987324097",
+        "more_info" => "lalalalala",
+        "more_info2" => "lalalalalajorge",
+      ],
+      "shipping_contact" => [
+        "address" => [
+          "street1" => "250 Alexis St",
+          "postal_code" => "98121",
+          "country" => "US"
+        ]
+      ]
+    ]
+  );
+} catch (\Conekta\ParameterValidationError $error) {
+  echo $error->getMessage();
+} catch (\Conekta\Handler $error) {
+  echo $error->getMessage();
+}
+
+
+?>
 <!DOCTYPE html>
-<!-- Template Name: DashCode - HTML, React, Vue, Tailwind Admin Dashboard Template Author: Codeshaper Website: https://codeshaper.net Contact: support@codeshaperbd.net Like: https://www.facebook.com/Codeshaperbd Purchase: https://themeforest.net/item/dashcode-admin-dashboard-template/42600453 License: You must have a valid license purchased only from themeforest(the above link) in order to legally use the theme for your project. -->
 <html lang="zxx" dir="ltr" class="light">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
-  <title>Dashcode - HTML Template</title>
+  <title>Bonanza</title>
   <link rel="icon" type="image/png" href="assets/images/logo/favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
@@ -16,6 +77,7 @@
   <link rel="stylesheet" href="assets/css/app.css">
   <!-- End : Theme CSS-->
   <script src="assets/js/settings.js" sync></script>
+  <link href="./tallerconekta/styles.css" media="all" rel="stylesheet" type="text/css">
 </head>
 
 <body class=" font-inter dashcode-app" id="body_class">
@@ -34,11 +96,11 @@
         <!-- Sidebar Type Button -->
         <div id="sidebar_type" class="cursor-pointer text-slate-900 dark:text-white text-lg">
           <span class="sidebarDotIcon extend-icon cursor-pointer text-slate-900 dark:text-white text-2xl">
-        <div class="h-4 w-4 border-[1.5px] border-slate-900 dark:border-slate-700 rounded-full transition-all duration-150 ring-2 ring-inset ring-offset-4 ring-black-900 dark:ring-slate-400 bg-slate-900 dark:bg-slate-400 dark:ring-offset-slate-700"></div>
-      </span>
+            <div class="h-4 w-4 border-[1.5px] border-slate-900 dark:border-slate-700 rounded-full transition-all duration-150 ring-2 ring-inset ring-offset-4 ring-black-900 dark:ring-slate-400 bg-slate-900 dark:bg-slate-400 dark:ring-offset-slate-700"></div>
+          </span>
           <span class="sidebarDotIcon collapsed-icon cursor-pointer text-slate-900 dark:text-white text-2xl">
-        <div class="h-4 w-4 border-[1.5px] border-slate-900 dark:border-slate-700 rounded-full transition-all duration-150"></div>
-      </span>
+            <div class="h-4 w-4 border-[1.5px] border-slate-900 dark:border-slate-700 rounded-full transition-all duration-150"></div>
+          </span>
         </div>
         <button class="sidebarCloseIcon text-2xl">
           <iconify-icon class="text-slate-900 dark:text-slate-200" icon="clarity:window-close-line"></iconify-icon>
@@ -48,15 +110,15 @@
       opacity-0"></div>
       <div class="sidebar-menus bg-white dark:bg-slate-800 py-2 px-4 h-[calc(100%-80px)] overflow-y-auto z-50" id="sidebar_menus">
         <ul class="sidebar-menu">
-          
+
           <!-- Apps Area -->
           <li class="sidebar-menu-title">MENU</li>
- 
+
           <li class="">
             <a href="javascript:void(0)" class="navItem">
               <span class="flex items-center">
-            <iconify-icon class=" nav-icon" icon="heroicons-outline:document"></iconify-icon>
-            <span>Pagos</span>
+                <iconify-icon class=" nav-icon" icon="heroicons-outline:document"></iconify-icon>
+                <span>Pagos</span>
               </span>
               <iconify-icon class="icon-arrow" icon="heroicons-outline:chevron-right"></iconify-icon>
             </a>
@@ -226,7 +288,7 @@
         rtl:space-x-reverse search-modal" data-bs-toggle="modal" data-bs-target="#searchModal">
                   <iconify-icon icon="heroicons-outline:search"></iconify-icon>
                   <span class="xl:inline-block hidden ml-3">Search...
-    </span>
+                  </span>
                 </button>
 
               </div>
@@ -234,13 +296,13 @@
               <div class="items-center space-x-4 rtl:space-x-reverse horizental-box">
                 <a href="index.html">
                   <span class="xl:inline-block hidden">
-        <img src="assets/images/logo/logo.svg" class="black_logo " alt="logo">
-        <img src="assets/images/logo/logo-white.svg" class="white_logo" alt="logo">
-    </span>
+                    <img src="assets/images/logo/logo.svg" class="black_logo " alt="logo">
+                    <img src="assets/images/logo/logo-white.svg" class="white_logo" alt="logo">
+                  </span>
                   <span class="xl:hidden inline-block">
-        <img src="assets/images/logo/logo-c.svg" class="black_logo " alt="logo">
-        <img src="assets/images/logo/logo-c-white.svg" class="white_logo " alt="logo">
-    </span>
+                    <img src="assets/images/logo/logo-c.svg" class="black_logo " alt="logo">
+                    <img src="assets/images/logo/logo-c-white.svg" class="white_logo " alt="logo">
+                  </span>
                 </a>
                 <button class="smallDeviceMenuController  open-sdiebar-controller xl:hidden inline-block">
                   <iconify-icon class="leading-none bg-transparent relative text-xl top-[2px] text-slate-900 dark:text-white" icon="heroicons-outline:menu-alt-3"></iconify-icon>
@@ -266,8 +328,8 @@
                     <a href="javascript:void()">
                       <div class="flex flex-1 items-center space-x-[6px] rtl:space-x-reverse">
                         <span class="icon-box">
-                    <iconify-icon icon=heroicons-outline:home > </iconify-icon>
-                  </span>
+                          <iconify-icon icon=heroicons-outline:home> </iconify-icon>
+                        </span>
                         <div class="text-box">Dashboard</div>
                       </div>
                       <div class="flex-none text-sm ltr:ml-3 rtl:mr-3 leading-[1] relative top-1">
@@ -288,8 +350,8 @@
                           <div class="flex space-x-2 items-start rtl:space-x-reverse">
                             <iconify-icon icon=heroicons:presentation-chart-line class="leading-[1] text-base"> </iconify-icon>
                             <span class="leading-[1]">
-                          Analytics Dashboard
-                        </span>
+                              Analytics Dashboard
+                            </span>
                           </div>
                         </a>
                       </li>
@@ -301,8 +363,8 @@
                           <div class="flex space-x-2 items-start rtl:space-x-reverse">
                             <iconify-icon icon=heroicons:shopping-cart class="leading-[1] text-base"> </iconify-icon>
                             <span class="leading-[1]">
-                          Ecommerce Dashboard
-                        </span>
+                              Ecommerce Dashboard
+                            </span>
                           </div>
                         </a>
                       </li>
@@ -314,8 +376,8 @@
                           <div class="flex space-x-2 items-start rtl:space-x-reverse">
                             <iconify-icon icon=heroicons:briefcase class="leading-[1] text-base"> </iconify-icon>
                             <span class="leading-[1]">
-                          Project Dashboard
-                        </span>
+                              Project Dashboard
+                            </span>
                           </div>
                         </a>
                       </li>
@@ -327,8 +389,8 @@
                           <div class="flex space-x-2 items-start rtl:space-x-reverse">
                             <iconify-icon icon=ri:customer-service-2-fill class="leading-[1] text-base"> </iconify-icon>
                             <span class="leading-[1]">
-                          CRM Dashboard
-                        </span>
+                              CRM Dashboard
+                            </span>
                           </div>
                         </a>
                       </li>
@@ -340,8 +402,8 @@
                           <div class="flex space-x-2 items-start rtl:space-x-reverse">
                             <iconify-icon icon=heroicons:wrench-screwdriver class="leading-[1] text-base"> </iconify-icon>
                             <span class="leading-[1]">
-                          Banking Dashboard
-                        </span>
+                              Banking Dashboard
+                            </span>
                           </div>
                         </a>
                       </li>
@@ -365,8 +427,8 @@
                     <a href="javascript:void()">
                       <div class="flex flex-1 items-center space-x-[6px] rtl:space-x-reverse">
                         <span class="icon-box">
-                    <iconify-icon icon=heroicons-outline:chip > </iconify-icon>
-                  </span>
+                          <iconify-icon icon=heroicons-outline:chip> </iconify-icon>
+                        </span>
                         <div class="text-box">App</div>
                       </div>
                       <div class="flex-none text-sm ltr:ml-3 rtl:mr-3 leading-[1] relative top-1">
@@ -387,8 +449,8 @@
                           <div class="flex space-x-2 items-start rtl:space-x-reverse">
                             <iconify-icon icon=heroicons-outline:chat class="leading-[1] text-base"> </iconify-icon>
                             <span class="leading-[1]">
-                          Chat
-                        </span>
+                              Chat
+                            </span>
                           </div>
                         </a>
                       </li>
@@ -400,8 +462,8 @@
                           <div class="flex space-x-2 items-start rtl:space-x-reverse">
                             <iconify-icon icon=heroicons-outline:mail class="leading-[1] text-base"> </iconify-icon>
                             <span class="leading-[1]">
-                          Email
-                        </span>
+                              Email
+                            </span>
                           </div>
                         </a>
                       </li>
@@ -413,8 +475,8 @@
                           <div class="flex space-x-2 items-start rtl:space-x-reverse">
                             <iconify-icon icon=heroicons-outline:calendar class="leading-[1] text-base"> </iconify-icon>
                             <span class="leading-[1]">
-                          Calendar
-                        </span>
+                              Calendar
+                            </span>
                           </div>
                         </a>
                       </li>
@@ -426,8 +488,8 @@
                           <div class="flex space-x-2 items-start rtl:space-x-reverse">
                             <iconify-icon icon=heroicons-outline:view-boards class="leading-[1] text-base"> </iconify-icon>
                             <span class="leading-[1]">
-                          Kanban
-                        </span>
+                              Kanban
+                            </span>
                           </div>
                         </a>
                       </li>
@@ -439,8 +501,8 @@
                           <div class="flex space-x-2 items-start rtl:space-x-reverse">
                             <iconify-icon icon=heroicons-outline:clipboard-check class="leading-[1] text-base"> </iconify-icon>
                             <span class="leading-[1]">
-                          Todo
-                        </span>
+                              Todo
+                            </span>
                           </div>
                         </a>
                       </li>
@@ -452,8 +514,8 @@
                           <div class="flex space-x-2 items-start rtl:space-x-reverse">
                             <iconify-icon icon=heroicons-outline:document class="leading-[1] text-base"> </iconify-icon>
                             <span class="leading-[1]">
-                          Projects
-                        </span>
+                              Projects
+                            </span>
                           </div>
                         </a>
                       </li>
@@ -477,8 +539,8 @@
                     <a href="javascript:void()">
                       <div class="flex flex-1 items-center space-x-[6px] rtl:space-x-reverse">
                         <span class="icon-box">
-                    <iconify-icon icon=heroicons-outline:view-boards > </iconify-icon>
-                  </span>
+                          <iconify-icon icon=heroicons-outline:view-boards> </iconify-icon>
+                        </span>
                         <div class="text-box">Pages</div>
                       </div>
                       <div class="flex-none text-sm ltr:ml-3 rtl:mr-3 leading-[1] relative top-1">
@@ -511,12 +573,8 @@
                           <a href=signin-one.html>
 
                             <div class="flex items-center space-x-2 text-[15px] leading-6 rtl:space-x-reverse">
-                              <span
-                                class="h-[6px] w-[6px] rounded-full border border-slate-600 dark:border-white inline-block flex-none"
-                              ></span>
-                              <span
-                                class="capitalize text-slate-600 dark:text-slate-300"
-                              >
+                              <span class="h-[6px] w-[6px] rounded-full border border-slate-600 dark:border-white inline-block flex-none"></span>
+                              <span class="capitalize text-slate-600 dark:text-slate-300">
                                 Signin One
                               </span>
                             </div>
@@ -528,12 +586,8 @@
                           <a href=signin-two.html>
 
                             <div class="flex items-center space-x-2 text-[15px] leading-6 rtl:space-x-reverse">
-                              <span
-                                class="h-[6px] w-[6px] rounded-full border border-slate-600 dark:border-white inline-block flex-none"
-                              ></span>
-                              <span
-                                class="capitalize text-slate-600 dark:text-slate-300"
-                              >
+                              <span class="h-[6px] w-[6px] rounded-full border border-slate-600 dark:border-white inline-block flex-none"></span>
+                              <span class="capitalize text-slate-600 dark:text-slate-300">
                                 Signin Two
                               </span>
                             </div>
@@ -545,12 +599,8 @@
                           <a href=signin-three.html>
 
                             <div class="flex items-center space-x-2 text-[15px] leading-6 rtl:space-x-reverse">
-                              <span
-                                class="h-[6px] w-[6px] rounded-full border border-slate-600 dark:border-white inline-block flex-none"
-                              ></span>
-                              <span
-                                class="capitalize text-slate-600 dark:text-slate-300"
-                              >
+                              <span class="h-[6px] w-[6px] rounded-full border border-slate-600 dark:border-white inline-block flex-none"></span>
+                              <span class="capitalize text-slate-600 dark:text-slate-300">
                                 Signin Three
                               </span>
                             </div>
@@ -562,12 +612,8 @@
                           <a href=signup-one.html>
 
                             <div class="flex items-center space-x-2 text-[15px] leading-6 rtl:space-x-reverse">
-                              <span
-                                class="h-[6px] w-[6px] rounded-full border border-slate-600 dark:border-white inline-block flex-none"
-                              ></span>
-                              <span
-                                class="capitalize text-slate-600 dark:text-slate-300"
-                              >
+                              <span class="h-[6px] w-[6px] rounded-full border border-slate-600 dark:border-white inline-block flex-none"></span>
+                              <span class="capitalize text-slate-600 dark:text-slate-300">
                                 Signup One
                               </span>
                             </div>
@@ -579,12 +625,8 @@
                           <a href=signup-two.html>
 
                             <div class="flex items-center space-x-2 text-[15px] leading-6 rtl:space-x-reverse">
-                              <span
-                                class="h-[6px] w-[6px] rounded-full border border-slate-600 dark:border-white inline-block flex-none"
-                              ></span>
-                              <span
-                                class="capitalize text-slate-600 dark:text-slate-300"
-                              >
+                              <span class="h-[6px] w-[6px] rounded-full border border-slate-600 dark:border-white inline-block flex-none"></span>
+                              <span class="capitalize text-slate-600 dark:text-slate-300">
                                 Signup Two
                               </span>
                             </div>
@@ -596,12 +638,8 @@
                           <a href=signup-three.html>
 
                             <div class="flex items-center space-x-2 text-[15px] leading-6 rtl:space-x-reverse">
-                              <span
-                                class="h-[6px] w-[6px] rounded-full border border-slate-600 dark:border-white inline-block flex-none"
-                              ></span>
-                              <span
-                                class="capitalize text-slate-600 dark:text-slate-300"
-                              >
+                              <span class="h-[6px] w-[6px] rounded-full border border-slate-600 dark:border-white inline-block flex-none"></span>
+                              <span class="capitalize text-slate-600 dark:text-slate-300">
                                 Signup Three
                               </span>
                             </div>
@@ -613,12 +651,8 @@
                           <a href=forget-password-one.html>
 
                             <div class="flex items-center space-x-2 text-[15px] leading-6 rtl:space-x-reverse">
-                              <span
-                                class="h-[6px] w-[6px] rounded-full border border-slate-600 dark:border-white inline-block flex-none"
-                              ></span>
-                              <span
-                                class="capitalize text-slate-600 dark:text-slate-300"
-                              >
+                              <span class="h-[6px] w-[6px] rounded-full border border-slate-600 dark:border-white inline-block flex-none"></span>
+                              <span class="capitalize text-slate-600 dark:text-slate-300">
                                 Forget Password One
                               </span>
                             </div>
@@ -630,12 +664,8 @@
                           <a href=forget-password-two.html>
 
                             <div class="flex items-center space-x-2 text-[15px] leading-6 rtl:space-x-reverse">
-                              <span
-                                class="h-[6px] w-[6px] rounded-full border border-slate-600 dark:border-white inline-block flex-none"
-                              ></span>
-                              <span
-                                class="capitalize text-slate-600 dark:text-slate-300"
-                              >
+                              <span class="h-[6px] w-[6px] rounded-full border border-slate-600 dark:border-white inline-block flex-none"></span>
+                              <span class="capitalize text-slate-600 dark:text-slate-300">
                                 Forget Password Two
                               </span>
                             </div>
@@ -647,12 +677,8 @@
                           <a href=forget-password-three.html>
 
                             <div class="flex items-center space-x-2 text-[15px] leading-6 rtl:space-x-reverse">
-                              <span
-                                class="h-[6px] w-[6px] rounded-full border border-slate-600 dark:border-white inline-block flex-none"
-                              ></span>
-                              <span
-                                class="capitalize text-slate-600 dark:text-slate-300"
-                              >
+                              <span class="h-[6px] w-[6px] rounded-full border border-slate-600 dark:border-white inline-block flex-none"></span>
+                              <span class="capitalize text-slate-600 dark:text-slate-300">
                                 Forget Password Three
                               </span>
                             </div>
@@ -664,12 +690,8 @@
                           <a href=lock-screen-one.html>
 
                             <div class="flex items-center space-x-2 text-[15px] leading-6 rtl:space-x-reverse">
-                              <span
-                                class="h-[6px] w-[6px] rounded-full border border-slate-600 dark:border-white inline-block flex-none"
-                              ></span>
-                              <span
-                                class="capitalize text-slate-600 dark:text-slate-300"
-                              >
+                              <span class="h-[6px] w-[6px] rounded-full border border-slate-600 dark:border-white inline-block flex-none"></span>
+                              <span class="capitalize text-slate-600 dark:text-slate-300">
                                 Lock Screen One
                               </span>
                             </div>
@@ -681,12 +703,8 @@
                           <a href=lock-screen-two.html>
 
                             <div class="flex items-center space-x-2 text-[15px] leading-6 rtl:space-x-reverse">
-                              <span
-                                class="h-[6px] w-[6px] rounded-full border border-slate-600 dark:border-white inline-block flex-none"
-                              ></span>
-                              <span
-                                class="capitalize text-slate-600 dark:text-slate-300"
-                              >
+                              <span class="h-[6px] w-[6px] rounded-full border border-slate-600 dark:border-white inline-block flex-none"></span>
+                              <span class="capitalize text-slate-600 dark:text-slate-300">
                                 Lock Screen Two
                               </span>
                             </div>
@@ -698,12 +716,8 @@
                           <a href=lock-screen-three.html>
 
                             <div class="flex items-center space-x-2 text-[15px] leading-6 rtl:space-x-reverse">
-                              <span
-                                class="h-[6px] w-[6px] rounded-full border border-slate-600 dark:border-white inline-block flex-none"
-                              ></span>
-                              <span
-                                class="capitalize text-slate-600 dark:text-slate-300"
-                              >
+                              <span class="h-[6px] w-[6px] rounded-full border border-slate-600 dark:border-white inline-block flex-none"></span>
+                              <span class="capitalize text-slate-600 dark:text-slate-300">
                                 Lock Screen Three
                               </span>
                             </div>
@@ -727,12 +741,8 @@
                           <a href=typography.html>
 
                             <div class="flex items-center space-x-2 text-[15px] leading-6 rtl:space-x-reverse">
-                              <span
-                                class="h-[6px] w-[6px] rounded-full border border-slate-600 dark:border-white inline-block flex-none"
-                              ></span>
-                              <span
-                                class="capitalize text-slate-600 dark:text-slate-300"
-                              >
+                              <span class="h-[6px] w-[6px] rounded-full border border-slate-600 dark:border-white inline-block flex-none"></span>
+                              <span class="capitalize text-slate-600 dark:text-slate-300">
                                 typography
                               </span>
                             </div>
@@ -744,12 +754,8 @@
                           <a href=colors.html>
 
                             <div class="flex items-center space-x-2 text-[15px] leading-6 rtl:space-x-reverse">
-                              <span
-                                class="h-[6px] w-[6px] rounded-full border border-slate-600 dark:border-white inline-block flex-none"
-                              ></span>
-                              <span
-                                class="capitalize text-slate-600 dark:text-slate-300"
-                              >
+                              <span class="h-[6px] w-[6px] rounded-full border border-slate-600 dark:border-white inline-block flex-none"></span>
+                              <span class="capitalize text-slate-600 dark:text-slate-300">
                                 colors
                               </span>
                             </div>
@@ -761,12 +767,8 @@
                           <a href=alert.html>
 
                             <div class="flex items-center space-x-2 text-[15px] leading-6 rtl:space-x-reverse">
-                              <span
-                                class="h-[6px] w-[6px] rounded-full border border-slate-600 dark:border-white inline-block flex-none"
-                              ></span>
-                              <span
-                                class="capitalize text-slate-600 dark:text-slate-300"
-                              >
+                              <span class="h-[6px] w-[6px] rounded-full border border-slate-600 dark:border-white inline-block flex-none"></span>
+                              <span class="capitalize text-slate-600 dark:text-slate-300">
                                 alert
                               </span>
                             </div>
@@ -778,12 +780,8 @@
                           <a href=button.html>
 
                             <div class="flex items-center space-x-2 text-[15px] leading-6 rtl:space-x-reverse">
-                              <span
-                                class="h-[6px] w-[6px] rounded-full border border-slate-600 dark:border-white inline-block flex-none"
-                              ></span>
-                              <span
-                                class="capitalize text-slate-600 dark:text-slate-300"
-                              >
+                              <span class="h-[6px] w-[6px] rounded-full border border-slate-600 dark:border-white inline-block flex-none"></span>
+                              <span class="capitalize text-slate-600 dark:text-slate-300">
                                 button
                               </span>
                             </div>
@@ -795,12 +793,8 @@
                           <a href=card.html>
 
                             <div class="flex items-center space-x-2 text-[15px] leading-6 rtl:space-x-reverse">
-                              <span
-                                class="h-[6px] w-[6px] rounded-full border border-slate-600 dark:border-white inline-block flex-none"
-                              ></span>
-                              <span
-                                class="capitalize text-slate-600 dark:text-slate-300"
-                              >
+                              <span class="h-[6px] w-[6px] rounded-full border border-slate-600 dark:border-white inline-block flex-none"></span>
+                              <span class="capitalize text-slate-600 dark:text-slate-300">
                                 card
                               </span>
                             </div>
@@ -812,12 +806,8 @@
                           <a href=carousel.html>
 
                             <div class="flex items-center space-x-2 text-[15px] leading-6 rtl:space-x-reverse">
-                              <span
-                                class="h-[6px] w-[6px] rounded-full border border-slate-600 dark:border-white inline-block flex-none"
-                              ></span>
-                              <span
-                                class="capitalize text-slate-600 dark:text-slate-300"
-                              >
+                              <span class="h-[6px] w-[6px] rounded-full border border-slate-600 dark:border-white inline-block flex-none"></span>
+                              <span class="capitalize text-slate-600 dark:text-slate-300">
                                 carousel
                               </span>
                             </div>
@@ -829,12 +819,8 @@
                           <a href=dropdown.html>
 
                             <div class="flex items-center space-x-2 text-[15px] leading-6 rtl:space-x-reverse">
-                              <span
-                                class="h-[6px] w-[6px] rounded-full border border-slate-600 dark:border-white inline-block flex-none"
-                              ></span>
-                              <span
-                                class="capitalize text-slate-600 dark:text-slate-300"
-                              >
+                              <span class="h-[6px] w-[6px] rounded-full border border-slate-600 dark:border-white inline-block flex-none"></span>
+                              <span class="capitalize text-slate-600 dark:text-slate-300">
                                 dropdown
                               </span>
                             </div>
@@ -846,12 +832,8 @@
                           <a href=image.html>
 
                             <div class="flex items-center space-x-2 text-[15px] leading-6 rtl:space-x-reverse">
-                              <span
-                                class="h-[6px] w-[6px] rounded-full border border-slate-600 dark:border-white inline-block flex-none"
-                              ></span>
-                              <span
-                                class="capitalize text-slate-600 dark:text-slate-300"
-                              >
+                              <span class="h-[6px] w-[6px] rounded-full border border-slate-600 dark:border-white inline-block flex-none"></span>
+                              <span class="capitalize text-slate-600 dark:text-slate-300">
                                 image
                               </span>
                             </div>
@@ -863,12 +845,8 @@
                           <a href=modal.html>
 
                             <div class="flex items-center space-x-2 text-[15px] leading-6 rtl:space-x-reverse">
-                              <span
-                                class="h-[6px] w-[6px] rounded-full border border-slate-600 dark:border-white inline-block flex-none"
-                              ></span>
-                              <span
-                                class="capitalize text-slate-600 dark:text-slate-300"
-                              >
+                              <span class="h-[6px] w-[6px] rounded-full border border-slate-600 dark:border-white inline-block flex-none"></span>
+                              <span class="capitalize text-slate-600 dark:text-slate-300">
                                 modal
                               </span>
                             </div>
@@ -880,12 +858,8 @@
                           <a href=progress-bar.html>
 
                             <div class="flex items-center space-x-2 text-[15px] leading-6 rtl:space-x-reverse">
-                              <span
-                                class="h-[6px] w-[6px] rounded-full border border-slate-600 dark:border-white inline-block flex-none"
-                              ></span>
-                              <span
-                                class="capitalize text-slate-600 dark:text-slate-300"
-                              >
+                              <span class="h-[6px] w-[6px] rounded-full border border-slate-600 dark:border-white inline-block flex-none"></span>
+                              <span class="capitalize text-slate-600 dark:text-slate-300">
                                 Progress bar
                               </span>
                             </div>
@@ -897,12 +871,8 @@
                           <a href=placeholder.html>
 
                             <div class="flex items-center space-x-2 text-[15px] leading-6 rtl:space-x-reverse">
-                              <span
-                                class="h-[6px] w-[6px] rounded-full border border-slate-600 dark:border-white inline-block flex-none"
-                              ></span>
-                              <span
-                                class="capitalize text-slate-600 dark:text-slate-300"
-                              >
+                              <span class="h-[6px] w-[6px] rounded-full border border-slate-600 dark:border-white inline-block flex-none"></span>
+                              <span class="capitalize text-slate-600 dark:text-slate-300">
                                 Placeholder
                               </span>
                             </div>
@@ -914,12 +884,8 @@
                           <a href=tab-accordion.html>
 
                             <div class="flex items-center space-x-2 text-[15px] leading-6 rtl:space-x-reverse">
-                              <span
-                                class="h-[6px] w-[6px] rounded-full border border-slate-600 dark:border-white inline-block flex-none"
-                              ></span>
-                              <span
-                                class="capitalize text-slate-600 dark:text-slate-300"
-                              >
+                              <span class="h-[6px] w-[6px] rounded-full border border-slate-600 dark:border-white inline-block flex-none"></span>
+                              <span class="capitalize text-slate-600 dark:text-slate-300">
                                 Tab &amp; Accordion
                               </span>
                             </div>
@@ -943,12 +909,8 @@
                           <a href=input.html>
 
                             <div class="flex items-center space-x-2 text-[15px] leading-6 rtl:space-x-reverse">
-                              <span
-                                class="h-[6px] w-[6px] rounded-full border border-slate-600 dark:border-white inline-block flex-none"
-                              ></span>
-                              <span
-                                class="capitalize text-slate-600 dark:text-slate-300"
-                              >
+                              <span class="h-[6px] w-[6px] rounded-full border border-slate-600 dark:border-white inline-block flex-none"></span>
+                              <span class="capitalize text-slate-600 dark:text-slate-300">
                                 Input
                               </span>
                             </div>
@@ -960,12 +922,8 @@
                           <a href=input-group.html>
 
                             <div class="flex items-center space-x-2 text-[15px] leading-6 rtl:space-x-reverse">
-                              <span
-                                class="h-[6px] w-[6px] rounded-full border border-slate-600 dark:border-white inline-block flex-none"
-                              ></span>
-                              <span
-                                class="capitalize text-slate-600 dark:text-slate-300"
-                              >
+                              <span class="h-[6px] w-[6px] rounded-full border border-slate-600 dark:border-white inline-block flex-none"></span>
+                              <span class="capitalize text-slate-600 dark:text-slate-300">
                                 Input group
                               </span>
                             </div>
@@ -977,12 +935,8 @@
                           <a href=input-layout.html>
 
                             <div class="flex items-center space-x-2 text-[15px] leading-6 rtl:space-x-reverse">
-                              <span
-                                class="h-[6px] w-[6px] rounded-full border border-slate-600 dark:border-white inline-block flex-none"
-                              ></span>
-                              <span
-                                class="capitalize text-slate-600 dark:text-slate-300"
-                              >
+                              <span class="h-[6px] w-[6px] rounded-full border border-slate-600 dark:border-white inline-block flex-none"></span>
+                              <span class="capitalize text-slate-600 dark:text-slate-300">
                                 Input layout
                               </span>
                             </div>
@@ -994,12 +948,8 @@
                           <a href=form-validation.html>
 
                             <div class="flex items-center space-x-2 text-[15px] leading-6 rtl:space-x-reverse">
-                              <span
-                                class="h-[6px] w-[6px] rounded-full border border-slate-600 dark:border-white inline-block flex-none"
-                              ></span>
-                              <span
-                                class="capitalize text-slate-600 dark:text-slate-300"
-                              >
+                              <span class="h-[6px] w-[6px] rounded-full border border-slate-600 dark:border-white inline-block flex-none"></span>
+                              <span class="capitalize text-slate-600 dark:text-slate-300">
                                 Form validation
                               </span>
                             </div>
@@ -1011,12 +961,8 @@
                           <a href=form-wizard.html>
 
                             <div class="flex items-center space-x-2 text-[15px] leading-6 rtl:space-x-reverse">
-                              <span
-                                class="h-[6px] w-[6px] rounded-full border border-slate-600 dark:border-white inline-block flex-none"
-                              ></span>
-                              <span
-                                class="capitalize text-slate-600 dark:text-slate-300"
-                              >
+                              <span class="h-[6px] w-[6px] rounded-full border border-slate-600 dark:border-white inline-block flex-none"></span>
+                              <span class="capitalize text-slate-600 dark:text-slate-300">
                                 Wizard
                               </span>
                             </div>
@@ -1028,12 +974,8 @@
                           <a href=input-mask.html>
 
                             <div class="flex items-center space-x-2 text-[15px] leading-6 rtl:space-x-reverse">
-                              <span
-                                class="h-[6px] w-[6px] rounded-full border border-slate-600 dark:border-white inline-block flex-none"
-                              ></span>
-                              <span
-                                class="capitalize text-slate-600 dark:text-slate-300"
-                              >
+                              <span class="h-[6px] w-[6px] rounded-full border border-slate-600 dark:border-white inline-block flex-none"></span>
+                              <span class="capitalize text-slate-600 dark:text-slate-300">
                                 Input mask
                               </span>
                             </div>
@@ -1045,12 +987,8 @@
                           <a href=file-input>
 
                             <div class="flex items-center space-x-2 text-[15px] leading-6 rtl:space-x-reverse">
-                              <span
-                                class="h-[6px] w-[6px] rounded-full border border-slate-600 dark:border-white inline-block flex-none"
-                              ></span>
-                              <span
-                                class="capitalize text-slate-600 dark:text-slate-300"
-                              >
+                              <span class="h-[6px] w-[6px] rounded-full border border-slate-600 dark:border-white inline-block flex-none"></span>
+                              <span class="capitalize text-slate-600 dark:text-slate-300">
                                 File input
                               </span>
                             </div>
@@ -1062,12 +1000,8 @@
                           <a href=form-repeater.html>
 
                             <div class="flex items-center space-x-2 text-[15px] leading-6 rtl:space-x-reverse">
-                              <span
-                                class="h-[6px] w-[6px] rounded-full border border-slate-600 dark:border-white inline-block flex-none"
-                              ></span>
-                              <span
-                                class="capitalize text-slate-600 dark:text-slate-300"
-                              >
+                              <span class="h-[6px] w-[6px] rounded-full border border-slate-600 dark:border-white inline-block flex-none"></span>
+                              <span class="capitalize text-slate-600 dark:text-slate-300">
                                 Form repeater
                               </span>
                             </div>
@@ -1079,12 +1013,8 @@
                           <a href=textarea.html>
 
                             <div class="flex items-center space-x-2 text-[15px] leading-6 rtl:space-x-reverse">
-                              <span
-                                class="h-[6px] w-[6px] rounded-full border border-slate-600 dark:border-white inline-block flex-none"
-                              ></span>
-                              <span
-                                class="capitalize text-slate-600 dark:text-slate-300"
-                              >
+                              <span class="h-[6px] w-[6px] rounded-full border border-slate-600 dark:border-white inline-block flex-none"></span>
+                              <span class="capitalize text-slate-600 dark:text-slate-300">
                                 Textarea
                               </span>
                             </div>
@@ -1096,12 +1026,8 @@
                           <a href=checkbox.html>
 
                             <div class="flex items-center space-x-2 text-[15px] leading-6 rtl:space-x-reverse">
-                              <span
-                                class="h-[6px] w-[6px] rounded-full border border-slate-600 dark:border-white inline-block flex-none"
-                              ></span>
-                              <span
-                                class="capitalize text-slate-600 dark:text-slate-300"
-                              >
+                              <span class="h-[6px] w-[6px] rounded-full border border-slate-600 dark:border-white inline-block flex-none"></span>
+                              <span class="capitalize text-slate-600 dark:text-slate-300">
                                 Checkbox
                               </span>
                             </div>
@@ -1113,12 +1039,8 @@
                           <a href=radio-button.html>
 
                             <div class="flex items-center space-x-2 text-[15px] leading-6 rtl:space-x-reverse">
-                              <span
-                                class="h-[6px] w-[6px] rounded-full border border-slate-600 dark:border-white inline-block flex-none"
-                              ></span>
-                              <span
-                                class="capitalize text-slate-600 dark:text-slate-300"
-                              >
+                              <span class="h-[6px] w-[6px] rounded-full border border-slate-600 dark:border-white inline-block flex-none"></span>
+                              <span class="capitalize text-slate-600 dark:text-slate-300">
                                 Radio button
                               </span>
                             </div>
@@ -1130,12 +1052,8 @@
                           <a href=switch.html>
 
                             <div class="flex items-center space-x-2 text-[15px] leading-6 rtl:space-x-reverse">
-                              <span
-                                class="h-[6px] w-[6px] rounded-full border border-slate-600 dark:border-white inline-block flex-none"
-                              ></span>
-                              <span
-                                class="capitalize text-slate-600 dark:text-slate-300"
-                              >
+                              <span class="h-[6px] w-[6px] rounded-full border border-slate-600 dark:border-white inline-block flex-none"></span>
+                              <span class="capitalize text-slate-600 dark:text-slate-300">
                                 Switch
                               </span>
                             </div>
@@ -1159,12 +1077,8 @@
                           <a href=invoice.html>
 
                             <div class="flex items-center space-x-2 text-[15px] leading-6 rtl:space-x-reverse">
-                              <span
-                                class="h-[6px] w-[6px] rounded-full border border-slate-600 dark:border-white inline-block flex-none"
-                              ></span>
-                              <span
-                                class="capitalize text-slate-600 dark:text-slate-300"
-                              >
+                              <span class="h-[6px] w-[6px] rounded-full border border-slate-600 dark:border-white inline-block flex-none"></span>
+                              <span class="capitalize text-slate-600 dark:text-slate-300">
                                 Invoice
                               </span>
                             </div>
@@ -1176,12 +1090,8 @@
                           <a href=pricing.html>
 
                             <div class="flex items-center space-x-2 text-[15px] leading-6 rtl:space-x-reverse">
-                              <span
-                                class="h-[6px] w-[6px] rounded-full border border-slate-600 dark:border-white inline-block flex-none"
-                              ></span>
-                              <span
-                                class="capitalize text-slate-600 dark:text-slate-300"
-                              >
+                              <span class="h-[6px] w-[6px] rounded-full border border-slate-600 dark:border-white inline-block flex-none"></span>
+                              <span class="capitalize text-slate-600 dark:text-slate-300">
                                 Pricing
                               </span>
                             </div>
@@ -1193,12 +1103,8 @@
                           <a href=faq.html>
 
                             <div class="flex items-center space-x-2 text-[15px] leading-6 rtl:space-x-reverse">
-                              <span
-                                class="h-[6px] w-[6px] rounded-full border border-slate-600 dark:border-white inline-block flex-none"
-                              ></span>
-                              <span
-                                class="capitalize text-slate-600 dark:text-slate-300"
-                              >
+                              <span class="h-[6px] w-[6px] rounded-full border border-slate-600 dark:border-white inline-block flex-none"></span>
+                              <span class="capitalize text-slate-600 dark:text-slate-300">
                                 FAQ
                               </span>
                             </div>
@@ -1210,12 +1116,8 @@
                           <a href=blank-page.html>
 
                             <div class="flex items-center space-x-2 text-[15px] leading-6 rtl:space-x-reverse">
-                              <span
-                                class="h-[6px] w-[6px] rounded-full border border-slate-600 dark:border-white inline-block flex-none"
-                              ></span>
-                              <span
-                                class="capitalize text-slate-600 dark:text-slate-300"
-                              >
+                              <span class="h-[6px] w-[6px] rounded-full border border-slate-600 dark:border-white inline-block flex-none"></span>
+                              <span class="capitalize text-slate-600 dark:text-slate-300">
                                 Blank page
                               </span>
                             </div>
@@ -1227,12 +1129,8 @@
                           <a href=blog.html>
 
                             <div class="flex items-center space-x-2 text-[15px] leading-6 rtl:space-x-reverse">
-                              <span
-                                class="h-[6px] w-[6px] rounded-full border border-slate-600 dark:border-white inline-block flex-none"
-                              ></span>
-                              <span
-                                class="capitalize text-slate-600 dark:text-slate-300"
-                              >
+                              <span class="h-[6px] w-[6px] rounded-full border border-slate-600 dark:border-white inline-block flex-none"></span>
+                              <span class="capitalize text-slate-600 dark:text-slate-300">
                                 Blog
                               </span>
                             </div>
@@ -1244,12 +1142,8 @@
                           <a href=404.html>
 
                             <div class="flex items-center space-x-2 text-[15px] leading-6 rtl:space-x-reverse">
-                              <span
-                                class="h-[6px] w-[6px] rounded-full border border-slate-600 dark:border-white inline-block flex-none"
-                              ></span>
-                              <span
-                                class="capitalize text-slate-600 dark:text-slate-300"
-                              >
+                              <span class="h-[6px] w-[6px] rounded-full border border-slate-600 dark:border-white inline-block flex-none"></span>
+                              <span class="capitalize text-slate-600 dark:text-slate-300">
                                 404 page
                               </span>
                             </div>
@@ -1261,12 +1155,8 @@
                           <a href=comming-soon.html>
 
                             <div class="flex items-center space-x-2 text-[15px] leading-6 rtl:space-x-reverse">
-                              <span
-                                class="h-[6px] w-[6px] rounded-full border border-slate-600 dark:border-white inline-block flex-none"
-                              ></span>
-                              <span
-                                class="capitalize text-slate-600 dark:text-slate-300"
-                              >
+                              <span class="h-[6px] w-[6px] rounded-full border border-slate-600 dark:border-white inline-block flex-none"></span>
+                              <span class="capitalize text-slate-600 dark:text-slate-300">
                                 Coming Soon
                               </span>
                             </div>
@@ -1278,12 +1168,8 @@
                           <a href=under-maintanance.html>
 
                             <div class="flex items-center space-x-2 text-[15px] leading-6 rtl:space-x-reverse">
-                              <span
-                                class="h-[6px] w-[6px] rounded-full border border-slate-600 dark:border-white inline-block flex-none"
-                              ></span>
-                              <span
-                                class="capitalize text-slate-600 dark:text-slate-300"
-                              >
+                              <span class="h-[6px] w-[6px] rounded-full border border-slate-600 dark:border-white inline-block flex-none"></span>
+                              <span class="capitalize text-slate-600 dark:text-slate-300">
                                 Under Maintanance page
                               </span>
                             </div>
@@ -1309,8 +1195,8 @@
                     <a href="javascript:void()">
                       <div class="flex flex-1 items-center space-x-[6px] rtl:space-x-reverse">
                         <span class="icon-box">
-                    <iconify-icon icon=heroicons-outline:view-grid-add > </iconify-icon>
-                  </span>
+                          <iconify-icon icon=heroicons-outline:view-grid-add> </iconify-icon>
+                        </span>
                         <div class="text-box">Widgets</div>
                       </div>
                       <div class="flex-none text-sm ltr:ml-3 rtl:mr-3 leading-[1] relative top-1">
@@ -1331,8 +1217,8 @@
                           <div class="flex space-x-2 items-start rtl:space-x-reverse">
                             <iconify-icon icon=heroicons-outline:document-text class="leading-[1] text-base"> </iconify-icon>
                             <span class="leading-[1]">
-                          Basic
-                        </span>
+                              Basic
+                            </span>
                           </div>
                         </a>
                       </li>
@@ -1344,8 +1230,8 @@
                           <div class="flex space-x-2 items-start rtl:space-x-reverse">
                             <iconify-icon icon=heroicons-outline:document-text class="leading-[1] text-base"> </iconify-icon>
                             <span class="leading-[1]">
-                          Statistic
-                        </span>
+                              Statistic
+                            </span>
                           </div>
                         </a>
                       </li>
@@ -1369,8 +1255,8 @@
                     <a href="javascript:void()">
                       <div class="flex flex-1 items-center space-x-[6px] rtl:space-x-reverse">
                         <span class="icon-box">
-                    <iconify-icon icon=heroicons-outline:template > </iconify-icon>
-                  </span>
+                          <iconify-icon icon=heroicons-outline:template> </iconify-icon>
+                        </span>
                         <div class="text-box">Extra</div>
                       </div>
                       <div class="flex-none text-sm ltr:ml-3 rtl:mr-3 leading-[1] relative top-1">
@@ -1391,8 +1277,8 @@
                           <div class="flex space-x-2 items-start rtl:space-x-reverse">
                             <iconify-icon icon=heroicons-outline:table class="leading-[1] text-base"> </iconify-icon>
                             <span class="leading-[1]">
-                          Basic Table
-                        </span>
+                              Basic Table
+                            </span>
                           </div>
                         </a>
                       </li>
@@ -1404,8 +1290,8 @@
                           <div class="flex space-x-2 items-start rtl:space-x-reverse">
                             <iconify-icon icon=heroicons-outline:table class="leading-[1] text-base"> </iconify-icon>
                             <span class="leading-[1]">
-                          Advanced table
-                        </span>
+                              Advanced table
+                            </span>
                           </div>
                         </a>
                       </li>
@@ -1417,8 +1303,8 @@
                           <div class="flex space-x-2 items-start rtl:space-x-reverse">
                             <iconify-icon icon=heroicons-outline:chart-bar class="leading-[1] text-base"> </iconify-icon>
                             <span class="leading-[1]">
-                          Apex chart
-                        </span>
+                              Apex chart
+                            </span>
                           </div>
                         </a>
                       </li>
@@ -1430,8 +1316,8 @@
                           <div class="flex space-x-2 items-start rtl:space-x-reverse">
                             <iconify-icon icon=heroicons-outline:chart-bar class="leading-[1] text-base"> </iconify-icon>
                             <span class="leading-[1]">
-                          Chart js
-                        </span>
+                              Chart js
+                            </span>
                           </div>
                         </a>
                       </li>
@@ -1443,8 +1329,8 @@
                           <div class="flex space-x-2 items-start rtl:space-x-reverse">
                             <iconify-icon icon=heroicons-outline:map class="leading-[1] text-base"> </iconify-icon>
                             <span class="leading-[1]">
-                          Map
-                        </span>
+                              Map
+                            </span>
                           </div>
                         </a>
                       </li>
@@ -1468,7 +1354,7 @@
             inline-flex items-center" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                     <iconify-icon icon="circle-flags:uk" class="mr-0 md:mr-2 rtl:ml-2 text-xl"></iconify-icon>
                     <span class="text-sm md:block hidden font-medium text-slate-600 dark:text-slate-300">
-            En</span>
+                      En</span>
                   </button>
                   <!-- Language Dropdown menu -->
                   <div class="dropdown-menu z-10 hidden bg-white divide-y divide-slate-100 shadow w-44 dark:bg-slate-800 border dark:border-slate-900 !top-[25px] rounded-md
@@ -1518,7 +1404,7 @@
                     <iconify-icon class="text-slate-800 dark:text-white text-xl" icon="heroicons-outline:mail"></iconify-icon>
                     <span class="absolute -right-1 lg:top-0 -top-[6px] h-4 w-4 bg-red-500 text-[8px] font-semibold flex flex-col items-center
         justify-center rounded-full text-white z-[45]">
-      10</span>
+                      10</span>
                   </button>
                   <!-- Mail Dropdown -->
                   <div class="dropdown-menu z-10 hidden bg-white divide-y divide-slate-100 dark:divide-slate-700 shadow w-[335px]
@@ -1547,7 +1433,7 @@
                           </div>
                           <div class="flex-0">
                             <span class="h-4 w-4 bg-danger-500 border border-white rounded-full text-[10px] flex items-center justify-center text-white">
-              1</span>
+                              1</span>
                           </div>
                         </div>
                       </div>
@@ -1590,7 +1476,7 @@
                           </div>
                           <div class="flex-0">
                             <span class="h-4 w-4 bg-danger-500 border border-white rounded-full text-[10px] flex items-center justify-center text-white">
-              8</span>
+                              8</span>
                           </div>
                         </div>
                       </div>
@@ -1607,7 +1493,7 @@
                     <iconify-icon class="animate-tada text-slate-800 dark:text-white text-xl" icon="heroicons-outline:bell"></iconify-icon>
                     <span class="absolute -right-1 lg:top-0 -top-[6px] h-4 w-4 bg-red-500 text-[8px] font-semibold flex flex-col items-center
         justify-center rounded-full text-white z-[99]">
-      4</span>
+                      4</span>
                   </button>
                   <!-- Notifications Dropdown -->
                   <div class="dropdown-menu z-10 hidden bg-white shadow w-[335px]
@@ -1799,13 +1685,13 @@
 
                 <div class="space-y-5">
                   <div class="grid xl:grid-cols-3 grid-cols-1 gap-5">
-                   
+
                   </div>
                   <div class="grid grid-cols-12 gap-5">
                     <div class="xl:col-span-8 lg:col-span-7 col-span-12">
                       <div class="card">
                         <div class="card-header noborder">
-                          <h4 class="card-title ">Team members</h4>
+                          <h4 class="card-title ">Seleccione el método de pago</h4>
                           <div>...</div>
                         </div>
                         <div class="card-body p-6">
@@ -1821,12 +1707,12 @@
                                       <div>
                                         <ul class="nav nav-tabs flex flex-col md:flex-row flex-wrap list-none border-b-0 pl-0 mb-4" id="tabs-tab" role="tablist">
                                           <li class="nav-item" role="presentation">
-                                            <a href="#tabs-home-withIcon" class="nav-link w-full flex items-center font-medium text-sm font-Inter leading-tight capitalize border-x-0 border-t-0 border-b border-transparent px-4 pb-2 my-2 hover:border-transparent focus:border-transparent active dark:text-slate-300" id="tabs-home-withIcon-tab" data-bs-toggle="pill" data-bs-target="#tabs-home-withIcon" role="tab" aria-controls="tabs-home-withIcon" aria-selected="true">
+                                            <a href="#tabs-home-withIcon" class="nav-link w-full flex items-center font-medium text-sm font-Inter leading-tight capitalize border-x-0 border-t-0 border-b border-transparent px-4 pb-2 my-2 hover:border-transparent focus:border-transparent active dark:text-slate-300" id="tabs-home-withIcon-tab" data-bs-toggle="pill" data-bs-target="#tabs-home-withIcon" role="tab" aria-controls="tabs-home-withIcon" aria-selected="false">
                                               <iconify-icon class="mr-1" icon="heroicons-outline:home"></iconify-icon>
                                               Visa</a>
                                           </li>
                                           <li class="nav-item" role="presentation">
-                                            <a href="#tabs-profile-withIcon" class="nav-link w-full flex items-center font-medium text-sm font-Inter leading-tight capitalize border-x-0 border-t-0 border-b border-transparent px-4 pb-2 my-2 hover:border-transparent focus:border-transparent dark:text-slate-300" id="tabs-profile-withIcon-tab" data-bs-toggle="pill" data-bs-target="#tabs-profile-withIcon" role="tab" aria-controls="tabs-profile-withIcon" aria-selected="false">
+                                            <a href="#tabs-profile-withIcon" class="nav-link w-full flex items-center font-medium text-sm font-Inter leading-tight capitalize border-x-0 border-t-0 border-b border-transparent px-4 pb-2 my-2 hover:border-transparent focus:border-transparent dark:text-slate-300" id="tabs-profile-withIcon-tab" data-bs-toggle="pill" data-bs-target="#tabs-profile-withIcon" role="tab" aria-controls="tabs-profile-withIcon" aria-selected="true">
                                               <iconify-icon class="mr-1" icon="heroicons-outline:user"></iconify-icon>
                                               PayPal</a>
                                           </li>
@@ -1854,15 +1740,85 @@
                                           <div class="tab-pane fade" id="tabs-messages-withIcon" role="tabpanel" aria-labelledby="tabs-messages-withIcon-tab">
                                             <p class="text-sm text-gray-500 dark:text-gray-200">
                                               Utilizar el metodo de pago.
-                                              <div class="card">
-                                                <div class="card-body rounded-md bg-white dark:bg-slate-800 shadow-base">
-                                                  <div class="items-center text-center p-5">
-                                                    <h3 class="card-title text-slate-900 dark:text-white">Conekta</h3>
-                                                    <p class="card-text my-7">Lorem ipsum dolor sit amet, consec tetur adipiscing elit, sed do eiusmod tempor incididun ut labore et dolor magna aliqua.</p>
-                                                    <a href="card.html" class="btn inline-flex justify-center bg-slate-900 text-slate-50 dark:bg-slate-900 dark:text-slate-300">proceder al pago</a>
+                                            <div class="card">
+                                              <div class="card-body rounded-md bg-white dark:bg-slate-800 shadow-base">
+                                                <div class="items-center text-center p-5">
+                                                  <h3 class="card-title text-slate-900 dark:text-white">Conekta</h3>
+                                                  <div class="bg-no-repeat bg-cover bg-center px-5 py-8 rounded-[6px] relative flex items-center" style="background-image: url(assets/images/all-img/widget-bg-6.png)">
+                                                    <div class="flex-1">
+                                                      <div class="max-w-[180px]">
+                                                        <h4 class="text-2xl font-medium text-white mb-2">
+                                                          <span class="block text-sm">Total a pagar</span>
+                                                          <span class="block">$100</span>
+                                                        </h4>
+                                                      </div>
+                                                    </div>
+                                                  </div>
+                                                  <button data-bs-toggle="modal" data-bs-target="#successModal" class="btn inline-flex justify-center btn-outline-success capitalize">proceder al pago</button>
+
+                                                  <div class="modal fade fixed top-0 left-0 hidden w-full h-full outline-none overflow-x-hidden overflow-y-auto" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog relative w-auto pointer-events-none">
+                                                      <div class="modal-content border-none shadow-lg relative flex flex-col w-full pointer-events-auto bg-white bg-clip-padding
+                                                                      rounded-md outline-none text-current">
+                                                        <div class="relative bg-white rounded-lg shadow dark:bg-slate-700">
+                                                          <!-- Modal header -->
+                                                          <div class="flex items-center justify-between p-5 border-b rounded-t dark:border-slate-600 bg-success-500">
+                                                            <h3 class="text-base font-medium text-white dark:text-white capitalize">
+                                                              Proceder al pago
+                                                              Modal
+                                                            </h3>
+                                                            <button type="button" class="text-slate-400 bg-transparent hover:text-slate-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center
+                                                                                  dark:hover:bg-slate-600 dark:hover:text-white" data-bs-dismiss="modal">
+                                                              <svg aria-hidden="true" class="w-5 h-5" fill="#ffffff" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                                                <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10
+                                                                                          11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                                                              </svg>
+                                                              <span class="sr-only">Close modal</span>
+                                                            </button>
+                                                          </div>
+                                                          <!-- Modal body -->
+                                                          <div class="p-6 space-y-4">
+                                                            <div class="opps">
+                                                              <div class="opps-header">
+                                                                <div class="opps-reminder">Ficha digital. No es necesario imprimir.</div>
+                                                                <div class="opps-info">
+                                                                  <div class="opps-brand"><img src="./tallerconekta/oxxopay_brand.png" alt="OXXOPay"></div>
+                                                                  <div class="opps-ammount">
+                                                                    <h3>Monto a pagar</h3>
+                                                                    <h2><?php echo  '$' . $order->amount / 100 ?> <sup>MXN</sup></h2>
+                                                                    <p>OXXO cobrará una comisión adicional al momento de realizar el pago.</p>
+                                                                  </div>
+                                                                </div>
+                                                                <div class="opps-reference">
+                                                                  <h3>Referencia</h3>
+                                                                  <h1><?php echo $order->charges[0]->payment_method->reference ?> </h1>
+                                                                </div>
+                                                              </div>
+                                                              <div class="opps-instructions">
+                                                                <h3>Instrucciones</h3>
+                                                                <ol>
+                                                                  <li>Acude a la tienda OXXO más cercana. <a href="https://www.google.com.mx/maps/search/oxxo/" target="_blank">Encuéntrala aquí</a>.</li>
+                                                                  <li>Indica en caja que quieres realizar un pago de servicio<strong></strong>.</li>
+                                                                  <li>Dicta al cajero el número de referencia en esta ficha para que tecleé directamete en la pantalla de venta.</li>
+                                                                  <li>Realiza el pago correspondiente con dinero en efectivo.</li>
+                                                                  <li>Al confirmar tu pago, el cajero te entregará un comprobante impreso. <strong>En el podrás verificar que se haya realizado correctamente.</strong> Conserva este comprobante de pago.</li>
+                                                                </ol>
+                                                                <div class="opps-footnote">Al completar estos pasos recibirás un correo de <strong>Nombre del negocio</strong> confirmando tu pago.</div>
+                                                              </div>
+                                                            </div>
+                                                          </div>
+
+                                                          <!-- Modal footer -->
+                                                          <div class="flex items-center p-6 space-x-2 border-t border-slate-200 rounded-b dark:border-slate-600">
+                                                            <button data-bs-dismiss="modal" class="btn inline-flex justify-center text-white bg-success-500">Aceptar</button>
+                                                          </div>
+                                                        </div>
+                                                      </div>
+                                                    </div>
                                                   </div>
                                                 </div>
                                               </div>
+                                            </div>
                                             </p>
                                           </div>
                                         </div>
@@ -1881,7 +1837,7 @@
                     <div class="xl:col-span-4 lg:col-span-5 col-span-12">
                       <div class="card h-full">
                         <div class="card-header">
-                          <h4 class="card-title">Files</h4>
+                          <h4 class="card-title">Historial</h4>
                           <div>...</div>
                         </div>
                         <div class="card-body p-6">
@@ -1901,17 +1857,12 @@
                                   </div>
                                   <div class="flex-1">
                                     <span class="block text-slate-600 text-sm dark:text-slate-300">
-                        Dashboard.fig
-                    </span>
+                                      Pago de luz
+                                    </span>
                                     <span class="block font-normal text-xs text-slate-500 mt-1">
-                        06 June 2021 / 155MB
-                    </span>
+                                      06 June 2021 / 100 mx
+                                    </span>
                                   </div>
-                                </div>
-                                <div class="flex-none">
-                                  <button type="button" class="text-xs text-slate-900 dark:text-white">
-                                    Download
-                                  </button>
                                 </div>
                               </div>
                             </li>
@@ -1926,42 +1877,12 @@
                                   </div>
                                   <div class="flex-1">
                                     <span class="block text-slate-600 text-sm dark:text-slate-300">
-                        Ecommerce.pdf
-                    </span>
+                                      Pago de tenis
+                                    </span>
                                     <span class="block font-normal text-xs text-slate-500 mt-1">
-                        06 June 2021 / 155MB
-                    </span>
+                                      06 June 2021 / 2000 mx
+                                    </span>
                                   </div>
-                                </div>
-                                <div class="flex-none">
-                                  <button type="button" class="text-xs text-slate-900 dark:text-white">
-                                    Download
-                                  </button>
-                                </div>
-                              </div>
-                            </li>
-
-                            <li class="block py-[8px]">
-                              <div class="flex space-x-2 rtl:space-x-reverse">
-                                <div class="flex-1 flex space-x-2 rtl:space-x-reverse">
-                                  <div class="flex-none">
-                                    <div class="h-8 w-8">
-                                      <img src=assets/images/icon/zip-1.svg alt="" class="block w-full h-full object-cover rounded-full border hover:border-white border-transparent">
-                                    </div>
-                                  </div>
-                                  <div class="flex-1">
-                                    <span class="block text-slate-600 text-sm dark:text-slate-300">
-                        Job portal_app.zip
-                    </span>
-                                    <span class="block font-normal text-xs text-slate-500 mt-1">
-                        06 June 2021 / 155MB
-                    </span>
-                                  </div>
-                                </div>
-                                <div class="flex-none">
-                                  <button type="button" class="text-xs text-slate-900 dark:text-white">
-                                    Download
-                                  </button>
                                 </div>
                               </div>
                             </li>
@@ -1976,42 +1897,12 @@
                                   </div>
                                   <div class="flex-1">
                                     <span class="block text-slate-600 text-sm dark:text-slate-300">
-                        Ecommerce.pdf
-                    </span>
+                                      Pago de amazon
+                                    </span>
                                     <span class="block font-normal text-xs text-slate-500 mt-1">
-                        06 June 2021 / 155MB
-                    </span>
+                                      06 June 2021 / 1000 mx
+                                    </span>
                                   </div>
-                                </div>
-                                <div class="flex-none">
-                                  <button type="button" class="text-xs text-slate-900 dark:text-white">
-                                    Download
-                                  </button>
-                                </div>
-                              </div>
-                            </li>
-
-                            <li class="block py-[8px]">
-                              <div class="flex space-x-2 rtl:space-x-reverse">
-                                <div class="flex-1 flex space-x-2 rtl:space-x-reverse">
-                                  <div class="flex-none">
-                                    <div class="h-8 w-8">
-                                      <img src=assets/images/icon/scr-1.svg alt="" class="block w-full h-full object-cover rounded-full border hover:border-white border-transparent">
-                                    </div>
-                                  </div>
-                                  <div class="flex-1">
-                                    <span class="block text-slate-600 text-sm dark:text-slate-300">
-                        Screenshot.jpg
-                    </span>
-                                    <span class="block font-normal text-xs text-slate-500 mt-1">
-                        06 June 2021 / 155MB
-                    </span>
-                                  </div>
-                                </div>
-                                <div class="flex-none">
-                                  <button type="button" class="text-xs text-slate-900 dark:text-white">
-                                    Download
-                                  </button>
                                 </div>
                               </div>
                             </li>
@@ -2056,15 +1947,15 @@
           <div>
             <span class="relative cursor-pointer rounded-full text-[20px] flex flex-col items-center justify-center mb-1 dark:text-white
           text-slate-900 ">
-        <iconify-icon icon="heroicons-outline:mail"></iconify-icon>
-        <span class="absolute right-[5px] lg:hrefp-0 -hrefp-2 h-4 w-4 bg-red-500 text-[8px] font-semibold flex flex-col items-center
+              <iconify-icon icon="heroicons-outline:mail"></iconify-icon>
+              <span class="absolute right-[5px] lg:hrefp-0 -hrefp-2 h-4 w-4 bg-red-500 text-[8px] font-semibold flex flex-col items-center
             justify-center rounded-full text-white z-[99]">
-          10
-        </span>
+                10
+              </span>
             </span>
             <span class="block text-[11px] text-slate-600 dark:text-slate-300">
-        Messages
-      </span>
+              Messages
+            </span>
           </div>
         </a>
         <a href="profile.html" class="relative bg-white bg-no-repeat backdrop-filter backdrop-blur-[40px] rounded-full footer-bg dark:bg-slate-700
@@ -2077,15 +1968,15 @@
           <div>
             <span class=" relative cursor-pointer rounded-full text-[20px] flex flex-col items-center justify-center mb-1 dark:text-white
           text-slate-900">
-        <iconify-icon icon="heroicons-outline:bell"></iconify-icon>
-        <span class="absolute right-[17px] lg:hrefp-0 -hrefp-2 h-4 w-4 bg-red-500 text-[8px] font-semibold flex flex-col items-center
+              <iconify-icon icon="heroicons-outline:bell"></iconify-icon>
+              <span class="absolute right-[17px] lg:hrefp-0 -hrefp-2 h-4 w-4 bg-red-500 text-[8px] font-semibold flex flex-col items-center
             justify-center rounded-full text-white z-[99]">
-          2
-        </span>
+                2
+              </span>
             </span>
             <span class=" block text-[11px] text-slate-600 dark:text-slate-300">
-        Notifications
-      </span>
+              Notifications
+            </span>
           </div>
         </a>
       </div>
@@ -2096,4 +1987,5 @@
   <script src="assets/js/rt-plugins.js"></script>
   <script src="assets/js/app.js"></script>
 </body>
+
 </html>

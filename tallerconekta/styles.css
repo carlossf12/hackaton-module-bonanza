@@ -1,0 +1,151 @@
+/* Reset */
+* {
+	margin: 0;
+	padding: 0;
+  }
+  
+  body {
+	font-size: 14px;
+  }
+  
+  /* Estilos para reducir el tamaño del contenido dentro del modal */
+  .opps h3 {
+	font-size: 12px; /* Tamaño de fuente más pequeño para los encabezados */
+  }
+  
+  .opps p {
+	font-size: 10px; /* Tamaño de fuente más pequeño para el texto */
+	line-height: 1.2; /* Espaciado interlineal más compacto si es necesario */
+  }
+  
+  .opps ol {
+	font-size: 10px; /* Tamaño de fuente más pequeño para las listas ordenadas */
+  }
+  
+  .opps li {
+	font-size: 10px; /* Tamaño de fuente más pequeño para los elementos de lista */
+  }
+  
+  /* Estilos adicionales si es necesario */
+  .opps a {
+	font-size: 10px; /* Tamaño de fuente más pequeño para los enlaces */
+  }
+  
+  /* Estilos para hacer el modal un poco más grande */
+  .opps {
+	width: 461px; /* Ancho ligeramente más grande */
+	border-radius: 4px;
+	box-sizing: border-box;
+	padding: 0 20px; /* Espacio reducido en los bordes laterales */
+	margin: 40px auto;
+	overflow: hidden;
+	border: 1px solid #b0afb5;
+	font-family: 'Open Sans', sans-serif;
+	color: #4f5365;
+  }
+  
+  /* Estilos originales del modal (sin cambios) */
+  h3 {
+	margin-bottom: 10px;
+	font-size: 15px;
+	font-weight: 600;
+	text-transform: uppercase;
+  }
+  
+  .opps-reminder {
+	position: relative;
+	top: -1px;
+	padding: 9px 0 10px;
+	font-size: 11px;
+	text-transform: uppercase;
+	text-align: center;
+	color: #ffffff;
+	background: #000000;
+  }
+  
+  .opps-info {
+	margin-top: 26px;
+	position: relative;
+  }
+  
+  .opps-info:after {
+	visibility: hidden;
+	display: block;
+	font-size: 0;
+	content: " ";
+	clear: both;
+	height: 0;
+  }
+  
+  .opps-brand {
+	width: 45%;
+	float: left;
+  }
+  
+  .opps-brand img {
+	max-width: 250px;
+	margin-top: 2px;
+  }
+  
+  .opps-ammount {
+	width: 55%;
+	float: right;
+  }
+  
+  .opps-ammount h2 {
+	font-size: 24px; /* Tamaño de fuente reducido */
+	color: #000000;
+	line-height: 20px;
+	margin-bottom: 10px; /* Espacio reducido debajo del título */
+  }
+  
+  .opps-ammount h2 sup {
+	font-size: 12px; /* Tamaño de fuente reducido */
+	position: relative;
+	top: -2px;
+  }
+  
+  .opps-ammount p {
+	font-size: 8px; /* Tamaño de fuente reducido */
+	line-height: 10px; /* Espaciado interlineal reducido */
+  }
+  
+  .opps-reference {
+	margin-top: 10px; /* Espacio reducido arriba del bloque de referencia */
+  }
+  
+  h1 {
+	font-size: 20px; /* Tamaño de fuente reducido */
+	color: #000000;
+	text-align: center;
+	margin-top: -1px;
+	padding: 4px 0 5px; /* Espacio reducido dentro del bloque de referencia */
+	border: 1px solid #b0afb5;
+	border-radius: 4px;
+	background: #f8f9fa;
+  }
+  
+  .opps-instructions {
+	margin: 20px -20px 0; /* Espacio reducido arriba y a los lados del bloque de instrucciones */
+	padding: 20px 20px 30px; /* Espacio reducido dentro del bloque de instrucciones */
+	border-top: 1px solid #b0afb5;
+	background: #f8f9fa;
+  }
+  
+  ol {
+	margin: 10px 0 0 12px; /* Espacio reducido en la lista ordenada */
+  }
+  
+  li + li {
+	margin-top: 5px; /* Espacio reducido entre elementos de lista */
+  }
+  
+  .opps-footnote {
+	margin-top: 15px; /* Espacio reducido arriba del pie de página */
+	padding: 16px 20 18px; /* Espacio reducido dentro del pie de página */
+	font-size: 8px; /* Tamaño de fuente reducido para el pie de página */
+	border: 1px solid #108f30;
+	border-radius: 4px;
+	background: #ffffff;
+  }
+  
